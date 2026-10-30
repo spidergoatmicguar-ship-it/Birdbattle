@@ -1,0 +1,202 @@
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif;user-select:none;}
+body,html{width:100%;height:100%;overflow:hidden;background:#1a1a1a;display:flex;justify-content:center;align-items:center;}
+#game-container{width:100%;height:100%;background:#222;position:relative;overflow:hidden;}
+.screen{width:100%;height:100%;position:absolute;top:0;left:0;display:none;background:#2c3e50;padding:20px;flex-direction:column;align-items:center;color:white;}
+.screen.active{display:flex;}#main-menu{justify-content:center;gap:20px;}
+h1{font-size:2.5rem;color:#f1c40f;margin-bottom:20px;text-align:center;}
+.menu-btn{padding:12px 30px;font-size:1.1rem;font-weight:bold;color:white;background:#e67e22;border:none;border-radius:5px;cursor:pointer;}
+.menu-btn:hover{background:#d35400;}#btn-season{background:#3498db;}#btn-season:hover{background:#2980b9;}
+.selection-container{display:flex;width:100%;justify-content:space-around;gap:20px;flex:1;min-height:0;}
+.team-select-column{flex:1;background:rgba(0,0,0,0.2);padding:10px;border-radius:6px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;border:2px solid transparent;}
+#col-teamA{border-color:#e74c3c;}#col-teamB{border-color:#3498db;}
+.team-option{padding:8px;background:rgba(255,255,255,0.1);border-radius:4px;cursor:pointer;text-align:center;font-weight:bold;}
+.team-option.selected-A{background:#e74c3c!important;}.team-option.selected-B{background:#3498db!important;}
+.history-list{width:100%;max-width:600px;background:rgba(0,0,0,0.3);border-radius:6px;padding:15px;flex:1;overflow-y:auto;margin-bottom:20px;display:flex;flex-direction:column;gap:10px;}
+.history-item{background:rgba(255,255,255,0.05);padding:10px;border-radius:4px;display:flex;justify-content:space-between;align-items:center;border-left:5px solid #f1c40f;}
+.back-btn{padding:8px 16px;background:#7f8c8d;border:none;color:white;border-radius:4px;cursor:pointer;}
+#game-screen{padding:0;background:#718093;}#stadium-bg{width:100%;height:100%;background:linear-gradient(to bottom,#78e08f 0%,#38ef7d 100%);position:relative;}
+#hud{position:absolute;top:15px;left:50%;transform:translateX(-50%);background:#1e272e;border:3px solid #f1c40f;border-radius:6px;display:flex;align-items:center;padding:8px 16px;color:white;z-index:10;gap:15px;}
+.hud-team{display:flex;flex-direction:column;align-items:center;min-width:100px;}.hud-score{font-size:1.8rem;font-family:monospace;background:#000;padding:2px 10px;border-radius:4px;margin-top:4px;}
+#hud-center{display:flex;flex-direction:column;align-items:center;min-width:80px;border-left:1px solid #444;border-right:1px solid #444;padding:0 10px;}
+#hud-qtr{font-size:0.8rem;color:#f1c40f;}#hud-timer{font-size:1.5rem;font-family:monospace;}
+.game-ctrl-btn{position:absolute;top:15px;padding:6px 12px;font-size:0.75rem;font-weight:bold;border-radius:4px;border:none;cursor:pointer;color:white;z-index:10;}
+#btn-game-menu{left:15px;background:#7f8c8d;}#btn-game-reset{right:15px;background:#c0392b;}
+.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:none;flex-direction:column;justify-content:center;align-items:center;z-index:20;color:white;gap:15px;}
+.overlay.active{display:flex;}.overlay-btn{padding:10px 20px;font-weight:bold;border:none;border-radius:4px;cursor:pointer;color:white;}
+#btn-save-log{background:#2ecc71;}#btn-rematch{background:#f39c12;}#btn-post-menu{background:#7f8c8d;}
+#field{width:100%;height:60%;position:absolute;bottom:0;left:0;overflow:hidden;}
+.bird{position:absolute;bottom:20px;width:60px;height:50px;display:flex;flex-direction:column;align-items:center;transition:transform 0.1s linear;}
+.bird-sprite{width:44px;height:32px;background-size:contain;background-repeat:no-repeat;background-position:center;}
+.type-pigeon{background-image:url('data:image/svg+xml;utf8,');}
+.type-seagull{background-image:url('data:image/svg+xml;utf8,');}
+.type-crow{background-image:url('data:image/svg+xml;utf8,');}
+.bird.flapping .bird-sprite::after{content:'';position:absolute;top:-6px;left:10px;width:22px;height:16px;border-radius:50%;animation:flap .15s infinite alternate;}
+.bird.type-pigeon.flapping .bird-sprite::after{background:#95a5a6;}
+.bird.type-seagull.flapping .bird-sprite::after{background:#e2e2e2;}
+.bird.type-crow.flapping .bird-sprite::after{background:#1a252f;}
+@keyframes flap{0%{transform:scaleY(1) translateY(0);}100%{transform:scaleY(-0.3) translateY(-6px);}}
+.bird-bars{width:100%;display:flex;flex-direction:column;gap:2px;margin-bottom:4px;}
+.health-bar-bg{width:100%;height:6px;background:rgba(0,0,0,0.4);border-radius:3px;overflow:hidden;}
+.health-bar-fill{height:100%;background:#2ecc71;width:100%;}
+.hits-badge{font-size:0.6rem;background:rgba(0,0,0,0.6);color:#fff;padding:1px 2px;border-radius:3px;text-align:center;}
+.facing-left{transform:scaleX(-1);}.facing-right{transform:scaleX(1);}
+.bird.knocked-out{transform:translateY(18px) rotate(85deg)!important;}
+.bird.knocked-out .bird-bars,.bird.knocked-out .bird-sprite::after{display:none!important;}
+
+
+
+Bird Battles
+Exhibition Match
+Season History
+
+
+Select Teams
+
+
+
+
+Start Match
+Back
+
+
+Season History
+
+Back
+
+
+MAIN MENU
+Pick New Teams
+
+Team A0
+QTR 11:00
+Team B0
+
+
+
+Match Complete
+
+
+Save Game
+Rematch
+Main Menu
+
+
+
+
+
+const LEAGUE_TEAMS=[
+{id:"p1",name:"Pier Seagulls",type:"seagull"},{id:"p2",name:"Bay Pigeon Co.",type:"pigeon"},{id:"p3",name:"Old Town Crows",type:"crow"},
+{id:"p4",name:"Marina Gulls",type:"seagull"},{id:"p5",name:"Plaza Pigeons",type:"pigeon"},{id:"p6",name:"Ravens Crest",type:"crow"}
+];
+let seasonHistory=JSON.parse(localStorage.getItem('bb_history'))||[];
+let selectedTeamA=null,selectedTeamB=null,currentQuarter=1,quarterTimerSeconds=60,matchScoreA=0,matchScoreB=0;
+let simulationInterval=null,clockInterval=null,isMatchActive=false,isKnockoutPause=false,birdA={},birdB={};
+document.addEventListener("DOMContentLoaded",()=>{buildSelectionMenus();setupInputHandlers();});
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='season-menu')renderSeasonLogs();}
+function setupInputHandlers(){
+document.getElementById('btn-play').addEventListener('click',()=>showScreen('team-menu'));
+document.getElementById('btn-season').addEventListener('click',()=>showScreen('season-menu'));
+document.getElementById('btn-start-match').addEventListener('click',startNewSimulationMatch);
+document.getElementById('btn-game-menu').addEventListener('click',exitToMainMenu);
+document.getElementById('btn-game-reset').addEventListener('click',()=>showScreen('team-menu'));
+document.getElementById('btn-save-log').addEventListener('click',saveCurrentMatchToLog);
+document.getElementById('btn-rematch').addEventListener('click',startNewSimulationMatch);
+document.getElementById('btn-post-menu').addEventListener('click',exitToMainMenu);
+}
+function buildSelectionMenus(){
+const colA=document.getElementById('col-teamA'),colB=document.getElementById('col-teamB');
+colA.innerHTML='Team A';colB.innerHTML='Team B';
+LEAGUE_TEAMS.forEach(team=>{
+const rA=document.createElement('div');rA.className='team-option';rA.innerText=team.name;rA.onclick=()=>{selectTeam(team,'A',rA)};colA.appendChild(rA);
+const rB=document.createElement('div');rB.className='team-option';rB.innerText=team.name;rB.onclick=()=>{selectTeam(team,'B',rB)};colB.appendChild(rB);
+});
+}
+function selectTeam(team,side,el){
+if(side==='A'){document.querySelectorAll('#col-teamA .team-option').forEach(e=>e.classList.remove('selected-A'));el.classList.add('selected-A');selectedTeamA=team;}
+else{document.querySelectorAll('#col-teamB .team-option').forEach(e=>e.classList.remove('selected-B'));el.classList.add('selected-B');selectedTeamB=team;}
+document.getElementById('btn-start-match').disabled=!(selectedTeamA&&selectedTeamB);
+}
+function startNewSimulationMatch(){
+matchScoreA=0;matchScoreB=0;currentQuarter=1;quarterTimerSeconds=60;isMatchActive=true;isKnockoutPause=false;
+document.getElementById('score-A').innerText="0";document.getElementById('score-B').innerText="0";
+document.getElementById('hud-name-A').innerText=selectedTeamA.name;document.getElementById('hud-name-B').innerText=selectedTeamB.name;
+document.getElementById('post-game-overlay').classList.remove('active');document.getElementById('btn-save-log').style.display='block';
+showScreen('game-screen');initializeBattlefieldEntities();clearInterval(simulationInterval);clearInterval(clockInterval);
+simulationInterval=setInterval(updatePhysicsEngineLoop,30);clockInterval=setInterval(updateMatchClockSeconds,1000);
+}
+function initializeBattlefieldEntities(){
+const f=document.getElementById('field');f.innerHTML='';
+birdA={x:150,y:40,targetX:200,targetY:40,hits:0,state:"fighting",side:"A",type:selectedTeamA.type};
+birdB={x:750,y:40,targetX:700,targetY:40,hits:0,state:"fighting",side:"B",type:selectedTeamB.type};
+birdA.element=spawnBirdNode(birdA);birdB.element=spawnBirdNode(birdB);
+}
+function spawnBirdNode(b){
+const d=document.createElement('div');d.className=bird type-${b.type} flapping ${b.side==='A'?'facing-right':'facing-left'};
+d.innerHTML=<div class="bird-bars"><div class="health-bar-bg"><div class="health-bar-fill"></div></div><div class="hits-badge">Hits: 0/20</div></div><div class="bird-sprite"></div>;
+document.getElementById('field').appendChild(d);d.style.left=${b.x}px;d.style.bottom=${b.y}px;return d;
+}
+function updateMatchClockSeconds(){
+if(!isMatchActive||isKnockoutPause)return;quarterTimerSeconds--;
+if(quarterTimerSeconds<=0){if(currentQuarter>=10){triggerMatchGameOverCeremony();}else{currentQuarter++;quarterTimerSeconds=60;}}
+document.getElementById('hud-qtr').innerText=QTR ${currentQuarter};
+const s=quarterTimerSeconds%60;document.getElementById('hud-timer').innerText=${Math.floor(quarterTimerSeconds/60)}:${s<10?'0':''}${s};
+}
+function updatePhysicsEngineLoop(){
+if(!isMatchActive)return;moveBird(birdA,birdB);moveBird(birdB,birdA);
+if(!isKnockoutPause && Math.hypot(birdA.x-birdB.x,birdA.y-birdB.y)<55 && Math.random()<0.15){
+if(Math.random()>0.5)hit(birdA,birdB);else hit(birdB,birdA);
+}
+}
+function moveBird(b,opp){
+if(b.state==="fighting"&&!isKnockoutPause){
+if(Math.abs(b.x-b.targetX)<10){
+let rMin=Math.min(Math.max(opp.x-200,50),900),rMax=Math.min(Math.max(opp.x+200,50),900);
+b.targetX=rMin+Math.random()*(rMax-rMin);b.targetY=20+Math.random()*120;
+}
+}else if(b.state==="victory_lap"){b.targetY=160;if(Math.abs(b.x-b.targetX)<15)b.targetX=b.x>500?100:850;}
+else if(b.state==="knocked_down"){b.targetY=0;b.targetX=b.x;}
+b.x+=(b.targetX-b.x)*0.06;b.y+=(b.targetY-b.y)*0.06;
+if(b.state!=="knocked_down"){
+if(b.targetX>b.x){b.element.classList.remove('facing-left');b.element.classList.add('facing-right');}
+else{b.element.classList.remove('facing-right');b.element.classList.add('facing-left');}
+}
+b.element.style.left=${b.x}px;b.element.style.bottom=${b.y}px;
+}
+function hit(atk,dfd){
+dfd.hits++;dfd.element.querySelector('.health-bar-fill').style.width=${Math.max(0,(20-dfd.hits)/20*100)}%;
+dfd.element.querySelector('.hits-badge').innerText=Hits: ${dfd.hits}/20;
+if(dfd.hits>=20){
+isKnockoutPause=true;dfd.state="knocked_down";dfd.element.classList.remove('flapping');dfd.element.classList.add('knocked-out');
+atk.state="victory_lap";atk.targetX=dfd.x>500?100:850;
+if(atk.side==='A'){matchScoreA++;document.getElementById('score-A').innerText=matchScoreA;}
+else{matchScoreB++;document.getElementById('score-B').innerText=matchScoreB;}
+setTimeout(()=>{
+if(!isMatchActive)return;dfd.hits=0;dfd.state="fighting";dfd.element.classList.remove('knocked-out');dfd.element.classList.add('flapping');
+dfd.element.querySelector('.health-bar-fill').style.width='100%';dfd.element.querySelector('.hits-badge').innerText='Hits: 0/20';
+atk.state="fighting";isKnockoutPause=false;
+},5000);
+}
+}
+function triggerMatchGameOverCeremony(){
+isMatchActive=false;clearInterval(simulationInterval);clearInterval(clockInterval);
+let txt=${selectedTeamA.name}: ${matchScoreA}<br>${selectedTeamB.name}: ${matchScoreB}<br><br>;
+document.getElementById('btn-rematch').style.display=matchScoreA===matchScoreB?'block':'none';
+document.getElementById('post-title').innerText=matchScoreA===matchScoreB?"Match Tie!":"Victory Ceremony";
+document.getElementById('post-details').innerHTML=txt+(matchScoreA===matchScoreB?"Deadlock tie match!":<strong>${matchScoreA>matchScoreB?selectedTeamA.name:selectedTeamB.name}</strong> Wins!);
+document.getElementById('post-game-overlay').classList.add('active');
+}
+function saveCurrentMatchToLog(){
+let n=new Date(),d=n.toLocaleDateString()+' @ '+n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+seasonHistory.push({teamA:selectedTeamA.name,teamB:selectedTeamB.name,scoreA:matchScoreA,scoreB:matchScoreB,timestamp:d});
+localStorage.setItem('bb_history',JSON.stringify(seasonHistory));document.getElementById('btn-save-log').style.display='none';alert('Logged!');
+}
+function exitToMainMenu(){isMatchActive=false;clearInterval(simulationInterval);clearInterval(clockInterval);document.getElementById('post-game-overlay').classList.remove('active');showScreen('main-menu');}
+function renderSeasonLogs(){
+const c=document.getElementById('log-list');c.innerHTML='';
+if(seasonHistory.length===0){c.innerHTML='No recorded games.';return;}
+for(let i=seasonHistory.length-1;i>=0;i--){
+const m=seasonHistory[i];const d=document.createElement('div');d.className='history-item';
+d.innerHTML=<div><div><strong>${m.teamA} vs ${m.teamB}</strong></div><div style="font-size:0.75rem;color:#bdc3c7;">${m.timestamp}</div></div><div style="font-weight:bold;color:#f1c40f;">${m.scoreA} - ${m.scoreB}</div>;
+c.appendChild(d);
+}
+}
